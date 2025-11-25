@@ -99,11 +99,13 @@ WSGI_APPLICATION = "peerlearning.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default="postgres://localhost:5432/postgres",
+        conn_max_age=500,
+        ssl_require=True
+    )
 }
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -159,9 +161,7 @@ AWS_QUERYSTRING_AUTH = False
 MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/'
 
 STORAGES = {
-    "default": {"BACKEND": "storages.backends.s3.S3Storage"},
-    # "staticfiles": {
-    #     "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    "default": {"BACKEND": "courses.storages.PublicMediaStorage"},
     "staticfiles": {
     "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
