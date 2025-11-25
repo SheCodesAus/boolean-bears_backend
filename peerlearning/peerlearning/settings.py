@@ -141,7 +141,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
@@ -153,14 +153,16 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "boolean-bear")
 AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "ap-southeast-2")
-DEFAULT_FILE_STORAGE = 'course.storages.PublicMediaStorage'
+DEFAULT_FILE_STORAGE = 'courses.storages.PublicMediaStorage'
 AWS_QUERYSTRING_AUTH = False
 
 MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/'
 
 STORAGES = {
     "default": {"BACKEND": "storages.backends.s3.S3Storage"},
+    # "staticfiles": {
+    #     "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
