@@ -21,12 +21,12 @@ class Course(models.Model):
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='courses') #### The user who created the course.
     created_at = models.DateTimeField(auto_now_add=True) ### The date and time when the course was created.
     updated_at = models.DateTimeField(auto_now=True) ### The date and time when the course was last updated. It might be hard to track this in the frontend.Nice to have feature.
-    image=models.URLField(blank=True, null=True) ### URL for the course image. Optional field for now. Trying to change this with upload feature later.
     is_open = models.BooleanField(default=True) ### To indicate if the course is open for enrollment or not.
-    max_students = models.PositiveIntegerField(null=True, blank=True) ### Maximum number of students allowed to enroll in the course. Optional field.   
     
     ### More features can be added later as per the requirements.
     ### Below this line is totally optional and can be removed if not needed.###
+    file = models.FileField(upload_to='course_files/', null=True, blank=True)
+    max_students = models.PositiveIntegerField(null=True, blank=True) ### Maximum number of students allowed to enroll in the course. Optional field.   
     DIFFICULTY_LEVEL_CHOICES = [
         ('beginner', 'Beginner'),
         ('intermediate', 'Intermediate'),
