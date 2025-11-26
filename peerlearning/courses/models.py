@@ -25,7 +25,7 @@ class Course(models.Model):
     
     ### More features can be added later as per the requirements.
     ### Below this line is totally optional and can be removed if not needed.###
-    file = models.FileField(upload_to='course_files/', null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
     max_students = models.PositiveIntegerField(null=True, blank=True) ### Maximum number of students allowed to enroll in the course. Optional field.   
     DIFFICULTY_LEVEL_CHOICES = [
         ('beginner', 'Beginner'),
